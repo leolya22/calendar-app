@@ -1,0 +1,60 @@
+.login-container {
+    display: flex;
+    margin: 100px auto;
+    justify-content: center;
+    width: auto;
+}
+
+.login, .register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+    gap: 50px;
+    box-shadow: -1px 1px 1px 1px rgb(187, 187, 187);
+}
+
+.register {
+    
+    background-color: rgb(28, 28, 202);
+}
+
+.register h3 {
+    color: white;
+}
+
+.register .btnSubmit {
+    color: rgb(28, 28, 202);
+    background-color: white;
+}
+
+.register h3 {
+    color: white;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.input {
+    width: 300px;
+    border-radius: 5px;
+    text-align: center;
+    border: 2px solid gray;
+    outline: 0px;
+    padding: 2px;
+}
+
+.btnSubmit {
+    width: 280px;
+    border-radius: 50px;
+    background-color: rgb(28, 28, 202);
+    border: none;
+    padding: 5px;
+    color: white;
+    margin-top: 20px;
+}
+
