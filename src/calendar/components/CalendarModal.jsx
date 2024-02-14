@@ -33,7 +33,7 @@ export const CalendarModal = () => {
         end: addHours( new Date(), 2 ),
     });
     const [ formSubmitted, setFormSubmitted ] = useState( false );
-    const { activeEvent, startSavingEvent } = useCalendarStore();
+    const { activeEvent, startSavingEvent, startDeletingEvent } = useCalendarStore();
 
     const titleClass = useMemo( () => {
         if( !formSubmitted ) return '';
@@ -69,11 +69,15 @@ export const CalendarModal = () => {
         closeDateModal();
         setFormSubmitted( false );
     }
+    const onRequestClose = () => {
+        closeDateModal();
+        startDeletingEvent();
+    }
 
     return (
         <Modal
             isOpen={ isDateModalOpen }
-            onRequestClose={ closeDateModal }
+            onRequestClose={ onRequestClose }
             style={ customStyles }
             className='modal'
             overlayClassName='modal-fondo'

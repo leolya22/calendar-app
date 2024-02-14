@@ -1,6 +1,7 @@
 import { Calendar } from 'react-big-calendar'
-import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 import { NavBar } from "../components/NavBar"
 import { localizer } from '../helpers/calendarLocalizer';
@@ -10,12 +11,14 @@ import { CalendarModal } from '../components/CalendarModal';
 import { useUiStore } from '../../hooks/useUiStore';
 import { useCalendarStore } from '../../hooks/useCalendarStore';
 import { FabAddNew } from '../components/FabAddNew';
+import { FabDelete } from '../components/FabDelete';
 
 
 export const CalendarPage = () => {
     const [ lastView, setLastView ] = useState( localStorage.getItem('lastView') || 'week' );
-    const { openDateModal } = useUiStore();
+    const { isDateModalOpen, openDateModal } = useUiStore();
     const { events, setActiveEvent } = useCalendarStore();
+    const { activeEvent } = useSelector( state => state.calendar )
 
     const eventStyleGetter = ( event, start, end, isSelected ) => {
         const style = {
@@ -30,10 +33,6 @@ export const CalendarPage = () => {
         }
     }
 
-    const onDoubleClick = event => {
-        openDateModal();
-    }
-
     const onSelect = event => {
         setActiveEvent( event );
     }
@@ -41,7 +40,6 @@ export const CalendarPage = () => {
     const onViewChanged = ( event ) => {
         localStorage.setItem( 'lastView', event )
         setLastView( event );
-        console.log( lastView );
     }
 
     return (
@@ -60,11 +58,12 @@ export const CalendarPage = () => {
                 components={{
                     event: CalendarEvent
                 }}
-                onDoubleClickEvent={ onDoubleClick }
+                onDoubleClickEvent={ openDateModal }
                 onSelectEvent={ onSelect }
                 onView={ onViewChanged }
             />
             <CalendarModal />
+            { activeEvent && !isDateModalOpen && <FabDelete /> }
             <FabAddNew />
         </>
     )
