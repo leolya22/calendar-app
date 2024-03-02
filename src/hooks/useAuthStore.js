@@ -26,10 +26,16 @@ export const useAuthStore = () => {
 
     const startRegister = async ({ name, email, password }) => {
         try {
-            const response = await calendarApi.post( '/auth/new', { name, email, password } );
-            console.log(response);
+            const { data } = await calendarApi.post( '/auth/new', { name, email, password } );
+            localStorage.setItem( 'token', data.token );
+            localStorage.setItem( 'token-init-date', new Date().getTime() );
+
+            dispatch( onLogin( data ) );
         } catch ( error ) {
-            console.log( error );
+            dispatch( onLogout( error.response.data.message ) );
+            setTimeout(() => {
+                dispatch( clearErrorMessage() );
+            }, 100);
         }
     }
 
