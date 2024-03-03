@@ -12,9 +12,11 @@ import { useUiStore } from '../../hooks/useUiStore';
 import { useCalendarStore } from '../../hooks/useCalendarStore';
 import { FabAddNew } from '../components/FabAddNew';
 import { FabDelete } from '../components/FabDelete';
+import { useAuthStore } from '../../hooks/useAuthStore';
 
 
 export const CalendarPage = () => {
+    const { user } = useAuthStore();
     const [ lastView, setLastView ] = useState( localStorage.getItem( 'lastView' ) || 'week' );
     const { isDateModalOpen, openDateModal } = useUiStore();
     const { events, setActiveEvent, startChargingEvents } = useCalendarStore();
@@ -25,8 +27,9 @@ export const CalendarPage = () => {
     }, [])
 
     const eventStyleGetter = ( event, start, end, isSelected ) => {
+        const isMyEvent = ( user.id === event.user.id ) || ( user.id === event.user._id );
         const style = {
-            backgroundColor: 'red',
+            backgroundColor: isMyEvent ? 'blue' : 'grey',
             borderRadius: '0px',
             opacity: 0.8,
             color: 'white'
