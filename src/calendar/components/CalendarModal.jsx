@@ -50,10 +50,10 @@ export const CalendarModal = () => {
     
 
     const onInputChange = ({ target }) => {
-        setFormValues({  ...formValues , [target.name]: target.value })
+        setFormValues({  ...formValues , [ target.name ]: target.value })
     }
     const onDateChange = ( event, changing ) => {
-        setFormValues({  ...formValues , [changing]: event })
+        setFormValues({  ...formValues , [ changing ]: event })
     }
     const onSubmit = async (event) => {
         event.preventDefault();

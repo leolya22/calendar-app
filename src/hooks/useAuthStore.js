@@ -15,8 +15,9 @@ export const useAuthStore = () => {
             localStorage.setItem( 'token', data.token );
             localStorage.setItem( 'token-init-date', new Date().getTime() );
 
-            dispatch( onLogin( data ) );
+            dispatch( onLogin({ name: data.name, id: data.uid}) );
         } catch ( error ) {
+            console.log(error);
             dispatch( onLogout( error.response.data.message ) );
             setTimeout(() => {
                 dispatch( clearErrorMessage() );
@@ -30,7 +31,7 @@ export const useAuthStore = () => {
             localStorage.setItem( 'token', data.token );
             localStorage.setItem( 'token-init-date', new Date().getTime() );
 
-            dispatch( onLogin( data ) );
+            dispatch( onLogin({ name: data.name, id: data.uid}) );
         } catch ( error ) {
             dispatch( onLogout( error.response.data.message ) );
             setTimeout(() => {
@@ -47,10 +48,10 @@ export const useAuthStore = () => {
             localStorage.setItem( 'token', data.token );
             localStorage.setItem( 'token-init-date', new Date().getTime() );
 
-            dispatch( onLogin( data ) );
+            dispatch( onLogin({ name: data.name, id: data.uid}) );
         } catch ( error ) {
             localStorage.clear();
-            dispatch( onLogout( error.response.data.message ) );
+            dispatch( onLogout( error.response.data.message || null ) );
             setTimeout(() => {
                 dispatch( clearErrorMessage() );
             }, 100);

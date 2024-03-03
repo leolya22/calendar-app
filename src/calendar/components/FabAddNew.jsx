@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addHours } from "date-fns";
 
 import { useUiStore } from "../../hooks/useUiStore"
@@ -9,6 +9,7 @@ export const FabAddNew = () => {
     const dispatch = useDispatch();
     const { openDateModal } = useUiStore();
     const { setActiveEvent } = useCalendarStore();
+    const { user } = useSelector( state => state.auth );
 
     const addNewEvent = () => {
         setActiveEvent({
@@ -17,10 +18,7 @@ export const FabAddNew = () => {
             start: new Date(),
             end: addHours( new Date(), 2 ),
             bgColor: '#000000',
-            user: {
-                _id: '123',
-                name: 'Leonardo'
-            }
+            user
         });
         dispatch( openDateModal() );
     }
